@@ -12,7 +12,7 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     {{-- 読書記録登録ページへのリンク --}}
-                    <li class="nav-item"><a href="#" class="nav-link">Register Record</a></li>
+                    <li class="nav-link">{!! link_to_route('reading_records.get', 'Register Record') !!}</li>
                     {{-- 一覧表示へのリンク --}}
                     <li class="nav-item"><a href="#" class="nav-link">List</a></li>
                     {{-- ログアウトページへのリンク --}}
