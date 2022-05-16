@@ -7,7 +7,7 @@
     </div>
     <div class="text-center">
         <a class="btn btn-dark btn-lg mr-5" href="#" role="button">Log in</a>
-        <a class="btn btn-dark btn-lg ml-5" href="#" role="button">Sign up</a>
+        {!! link_to_route('signup.get', 'Sign up', [], ['class' => 'btn btn-dark btn-lg ml-5']) !!}
     </div>
  </div>
 @endsection
