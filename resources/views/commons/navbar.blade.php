@@ -10,12 +10,14 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                {{-- 読書記録登録ページへのリンク --}}
-                <li class="nav-item"><a href="#" class="nav-link">Register Record</a></li>
-                {{-- 一覧表示へのリンク --}}
-                <li class="nav-item"><a href="#" class="nav-link">List</a></li>
-                {{-- ログアウトページへのリンク --}}
-                <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
+                @if (Auth::check())
+                    {{-- 読書記録登録ページへのリンク --}}
+                    <li class="nav-item"><a href="#" class="nav-link">Register Record</a></li>
+                    {{-- 一覧表示へのリンク --}}
+                    <li class="nav-item"><a href="#" class="nav-link">List</a></li>
+                    {{-- ログアウトページへのリンク --}}
+                    <li class="nav-link">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                @endif
             </ul>
         </div>
     </nav>
