@@ -9,12 +9,12 @@
                 @endforeach
             </select>
         </p>
-        <p>Sort
+        <p>Sort　
             <select class='form-select', name ='sort'>
-                <option value="updated_at_desc">更新が新しい順</option>
-                <option value="updated_at_asc">更新が古い順</option>
-                <option value="rating_desc">評価が高い順</option>
-                <option value="rating_asc">評価が低い順</option>
+                <option value="updated_at_desc" @if ($sort == 'updated_at_desc') selected @endif>更新が新しい順</option>
+                <option value="updated_at_asc" @if ($sort == 'updated_at_asc') selected @endif>更新が古い順</option>
+                <option value="rating_desc" @if ($sort == 'rating_desc') selected @endif>評価が高い順</option>
+                <option value="rating_asc" @if ($sort == 'rating_asc') selected @endif>評価が低い順</option>
             </select>
         </p>
     </div>
@@ -38,20 +38,21 @@
 
 
 @if (count($reading_records) > 0)
-    <ul class="list-unstyled container">
         @foreach ($reading_records as $reading_record)
-            <li class="media mb-3">
-                <div class=" media-body d-flex">
+            <div class="media mb-3">
+                <div class="d-flex container">
                     <div class="col-md-2">
-                    <i class="block-center fas fa-book-open fa-5x"></i>
+                        <i class="d-inline-block text-center fas fa-book-open fa-5x"></i>
                         <p class="text-center">{!! nl2br(e($reading_record->rating)) !!}</p>
                     </div>
                     
-                    <div class="col-md-10">
+                    <div class=" media-body col-md-10">
                         <div>
                             <p class="mb-0 font-weight-bold">
-                                <span class="badge bg-secondary text-light">{!! nl2br(e(\App\Genre::find($reading_record->genre_id)->name)) !!}</span>
-                                {!! nl2br(e($reading_record->title)) !!} ({!! nl2br(e($reading_record->author)) !!})
+                                <a class="text-dark" href="{{ route('reading_records.show', $reading_record->id) }}">
+                                    <span class="badge bg-secondary text-light">{!! nl2br(e(\App\Genre::find($reading_record->genre_id)->name)) !!}</span>
+                                    {!! nl2br(e($reading_record->title)) !!} ({!! nl2br(e($reading_record->author)) !!})
+                                </a>
                             </p>
                         </div>
                         <div>
@@ -62,9 +63,8 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </div>
         @endforeach
-    </ul>
     {{-- ページネーションのリンク --}}
     {{ $reading_records->links() }}
 @endif

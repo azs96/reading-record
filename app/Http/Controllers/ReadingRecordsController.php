@@ -103,8 +103,55 @@ class ReadingRecordsController extends Controller
     
         
     
-    public function destroy()
+    public function destroy($id)
     {
+        $reading_record = ReadingRecord::findOrFail($id);
+        $reading_record->delete();
         
+        return redirect('/');
+    }
+    
+    public function show($id)
+    {
+        $reading_record = ReadingRecord::findOrFail($id);
+        
+        return view('reading-records.show', [
+            'reading_record' => $reading_record,
+        ]);
+    }
+    
+    public function edit($id)
+    {
+        $reading_record = ReadingRecord::findOrFail($id);
+        $genres = Genre::get(['id', 'name']);
+        $scores = [];
+        for($score = 1; $score <= 100; $score++){
+            $scores = $score;
+        }
+
+        return view('reading-records.edit', [
+            'reading_record' => $reading_record,
+            'genres' => $genres,
+            'scores' => $scores,
+        ]);
+    }
+    
+    public function update(Request $request, $id)
+    {
+        // バリデーション
+        $request->validate([
+            'genre_id' => 'required|integer',
+            'author' => 'required|max:255',
+            'title' => 'required|max:255',
+            'content' => 'required|max:16384',
+            'rating' => 'required|integer',
+        ]);
+        
+        $reading_record = ReadingRecord::findOrFail($id);
+        
+        $reading_record->content = $request->content;
+        $reading_record->save();
+        
+        return $this->show($reading_record->id);
     }
 }

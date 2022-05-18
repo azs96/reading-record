@@ -21,6 +21,6 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('reading_records', 'ReadingRecordsController', ['only' => ['store', 'destroy']]);
+    Route::resource('reading_records', 'ReadingRecordsController', ['only' => ['store', 'destroy', 'show', 'edit', 'update']]);
     Route::get('reading_records', 'ReadingRecordsController@showRegistrationForm')->name('reading_records.get');
 });
