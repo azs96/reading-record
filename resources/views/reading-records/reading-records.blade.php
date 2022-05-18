@@ -24,9 +24,9 @@
     </div>
     
     <div>
-        {!! Form::open(['route' => 'reading-records.index']) !!}
+        {!! Form::open(['route' => 'reading-records.index', 'method' => 'get']) !!}
             <div class="form-group">
-                {!! Form::text('search') !!}
+                {!! Form::text('search_words', $search_words) !!}
             </div>
     </div>
     <div>

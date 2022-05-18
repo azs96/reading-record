@@ -23,6 +23,20 @@ class ReadingRecordsController extends Controller
             $reading_records = \Auth::user()->reading_records();
             $genre_id = $request->get('genre_id');
             $sort = $request->get('sort');
+            $search_words = $request->get('search_words');
+
+            // 検索語がある場合
+            if(!empty($search_words)){
+                $spaceConversion = mb_convert_kana($search_words, 's');
+                $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+                foreach($wordArraySearched as $value) {
+                    $reading_record = $reading_records
+                        ->where('title', 'like', '%'.$value.'%')
+                        ->orWhere('content', 'like', '%'.$value.'%')
+                        ->orWhere('author', 'like', '%'.$value.'%');
+                    $reading_records = $reading_record;
+                }
+            }
             
             // ジャンル指定がある場合
             if(!empty($genre_id)){
@@ -46,6 +60,8 @@ class ReadingRecordsController extends Controller
                     $reading_records = $reading_records->paginate(10);
                 }
             }
+            
+            
         } else {
             return view('welcome');
         }
@@ -55,6 +71,8 @@ class ReadingRecordsController extends Controller
             return view('welcome', [
                 'reading_records' => $reading_records,
                 'genres' => $genres,
+                'sort' => $sort,
+                'search_words' => $search_words,
             ]);
         
          
