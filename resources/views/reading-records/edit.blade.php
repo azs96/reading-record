@@ -47,7 +47,9 @@
                 </div>
             </div>
 
-                {!! Form::submit('更新', ['class' => 'btn btn-primary']) !!}
+            <div class="text-right">
+                {!! Form::submit('update', ['class' => 'btn btn-dark']) !!}
+            </div>
 
             {!! Form::close() !!}
         </div>
