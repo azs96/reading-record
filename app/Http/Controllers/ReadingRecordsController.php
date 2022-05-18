@@ -150,6 +150,10 @@ class ReadingRecordsController extends Controller
         $reading_record = ReadingRecord::findOrFail($id);
         
         $reading_record->content = $request->content;
+        $reading_record->title = $request->title;
+        $reading_record->rating = $request->rating;
+        $reading_record->genre_id = $request->genre_id;
+        $reading_record->author = $request->author;
         $reading_record->save();
         
         return $this->show($reading_record->id);

@@ -2,13 +2,13 @@
 
 @section('content')
         <div class="media container">
-            <div class="media-body col-md-4">
+            <div class="media-body col-md-2">
                 <i class="block-center fas fa-book-open fa-5x"></i>
             </div>
             <div class="col-md-12">
                 <table class="table">
                         <tr>
-                            <th>title:</th>
+                            <th class="w-25">title:</th>
                             <td>{!! nl2br(e($reading_record->title)) !!}</td>
                         </tr>
                         <tr>
@@ -40,7 +40,7 @@
             {!! Form::model($reading_record, ['route' => ['reading_records.destroy', $reading_record->id], 'method' => 'delete']) !!}
                 {!! Form::submit('delete', ['class' => 'btn btn-danger mr-5']) !!}
             {!! Form::close() !!}
-            <div><a class="btn btn-secondary" href="/">Back to list</a></div>
+            <div><a class="btn btn-secondary" href="{{ url()->previous() }}">Back to list</a></div>
         </div>
         
 

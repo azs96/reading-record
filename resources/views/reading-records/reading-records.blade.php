@@ -21,7 +21,7 @@
     <div>
             {!! Form::submit('show list', ['class' => 'btn btn-dark btn-block']) !!}
         {!! Form::close() !!}
-    </div>
+    </div> 
     
     <div>
         {!! Form::open(['route' => 'reading-records.index', 'method' => 'get']) !!}
@@ -42,7 +42,7 @@
             <div class="media mb-3">
                 <div class="d-flex container">
                     <div class="col-md-2">
-                        <i class="d-inline-block text-center fas fa-book-open fa-5x"></i>
+                        <i class="w-100 d-inline-block text-center fas fa-book-open fa-5x"></i>
                         <p class="text-center">{!! nl2br(e($reading_record->rating)) !!}</p>
                     </div>
                     

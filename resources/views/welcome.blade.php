@@ -3,7 +3,7 @@
 @section('content')
 {{-- ログインしていない場合のホームページ --}}
     @if (!Auth::check())
-        <div class="center jumbotron bg-light">
+        <div class="center jumbotron bg-light align-middle">
             <div class="text-center">
                 <h1>Reading Record</h1>
             </div>
@@ -12,7 +12,6 @@
                 {!! link_to_route('signup.get', 'Sign up', [], ['class' => 'btn btn-dark btn-lg ml-5']) !!}
             </div>
         </div>
-    {{-- ログインしている場合はいちらん表示todo --}}
     @else
         @include('reading-records.reading-records')
     @endif
