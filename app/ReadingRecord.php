@@ -19,4 +19,9 @@ class ReadingRecord extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+    
+    // public function orderByModel($col, $sort)
+    // {
+    //     return $this->orderBy($col, $sort)->paginate(10);
+    // }
 }

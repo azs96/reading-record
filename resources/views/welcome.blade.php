@@ -14,6 +14,6 @@
         </div>
     {{-- ログインしている場合はいちらん表示todo --}}
     @else
-        
+        @include('reading-records.reading-records')
     @endif
 @endsection

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ReadingRecordsController@index')->name('reading-records.index');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -23,6 +21,6 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('reading_records', 'ReadingRecordsController', ['only' => ['store', 'destroy', 'index']]);
+    Route::resource('reading_records', 'ReadingRecordsController', ['only' => ['store', 'destroy']]);
     Route::get('reading_records', 'ReadingRecordsController@showRegistrationForm')->name('reading_records.get');
 });
