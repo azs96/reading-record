@@ -20,54 +20,27 @@ class ReadingRecordsController extends Controller
     public function index(Request $request)
     {   
         if(\Auth::check()){
-            $user = \Auth::user();
+            $reading_records = \Auth::user()->reading_records();
             $genre_id = $request->get('genre_id');
             $sort = $request->get('sort');
             
             // ジャンル指定がある場合
-            if($genre_id){
-                $reading_records = $user->reading_records()->where('genre_id', $genre_id);
-                
+            if(!empty($genre_id)){
+                $reading_records = $reading_records->where('genre_id', $genre_id);
                 // ジャンル指定も並び替えもある場合
-                if($sort){
-                    switch($sort){
-                        case 'updated_at_desc':
-                            $reading_records = $reading_records->orderBy('updated_at', 'desc')->paginate(10);
-                            break;
-                        case 'updated_at_asc':
-                            $reading_records = $reading_records->orderBy('updated_at', 'asc')->paginate(10);
-                            break;
-                        case 'rating_desc':
-                            $reading_records = $reading_records->orderBy('rating', 'desc')->paginate(10);
-                            break;
-                        case 'rating_asc':
-                            $reading_records = $reading_records->orderBy('rating', 'asc')->paginate(10);
-                            break;
-                    }
+                if(!empty($sort)){
+                    $records = new ReadingRecord();
+                    $reading_records = $records->sortModel($reading_records, $sort);
                 // 並び替え指定はない場合
                 }else{
                     $reading_records = $reading_records->paginate(10);
                 }
             // ジャンル指定なし
             }else{
-                $reading_records = $user->reading_records();
-                
                 // ジャンル指定なし＆並び替えあり
-                if($sort){
-                    switch($sort){
-                        case 'updated_at_desc':
-                            $reading_records = $reading_records->orderBy('updated_at', 'desc')->paginate(10);
-                            break;
-                        case 'updated_at_asc':
-                            $reading_records = $reading_records->orderBy('updated_at', 'asc')->paginate(10);
-                            break;
-                        case 'rating_desc':
-                            $reading_records = $reading_records->orderBy('rating', 'desc')->paginate(10);
-                            break;
-                        case 'rating_asc':
-                            $reading_records = $reading_records->orderBy('rating', 'asc')->paginate(10);
-                            break;
-                    }
+                if(!empty($sort)){
+                    $records = new ReadingRecord();
+                    $reading_records = $records->sortModel($reading_records, $sort);
                 // ジャンル指定なし＆並び替えなし
                 }else{
                     $reading_records = $reading_records->paginate(10);
