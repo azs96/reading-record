@@ -1,33 +1,27 @@
-<div class="d-flex justify-content-around align-items-center">
-    <div>
+<div class="d-flex justify-content-around">
+    <div class="form-group">
         {!! Form::open(['route' => 'reading_records.index', 'method' => 'get']) !!}
-        <p>Genre
+        Genre
             <select class='form-select', name ='genre_id'>
                 <option value="">すべて</option>
                 @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    <option value="{{ $genre->id }}" @if ($genre_id == $genre->id) selected @endif>{{ $genre->name }}</option>
                 @endforeach
             </select>
-        </p>
-        <p>Sort　
+        
+    </div>
+    <div class="form-group">
+        Sort　
             <select class='form-select', name ='sort'>
                 <option value="updated_at_desc" @if ($sort == 'updated_at_desc') selected @endif>更新が新しい順</option>
                 <option value="updated_at_asc" @if ($sort == 'updated_at_asc') selected @endif>更新が古い順</option>
                 <option value="rating_desc" @if ($sort == 'rating_desc') selected @endif>評価が高い順</option>
                 <option value="rating_asc" @if ($sort == 'rating_asc') selected @endif>評価が低い順</option>
             </select>
-        </p>
+        
     </div>
-    <div>
-            {!! Form::submit('show list', ['class' => 'btn btn-dark btn-block']) !!}
-        {!! Form::close() !!}
-    </div> 
-    
-    <div>
-        {!! Form::open(['route' => 'reading_records.index', 'method' => 'get']) !!}
-            <div class="form-group">
-                {!! Form::text('search_words', $search_words) !!}
-            </div>
+    <div class="form-group">Keywords 
+        {!! Form::text('search_words', $search_words) !!}
     </div>
     <div>
             {!! Form::submit('search', ['class' => 'btn btn-dark btn-block']) !!}

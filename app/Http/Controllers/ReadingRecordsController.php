@@ -76,6 +76,7 @@ class ReadingRecordsController extends Controller
                 'reading_records' => $reading_records,
                 'genres' => $genres,
                 'sort' => $sort,
+                'genre_id' => $genre_id,
                 'search_words' => $search_words,
             ]);
         
