@@ -24,18 +24,21 @@ class ReadingRecordsController extends Controller
             $genre_id = $request->get('genre_id');
             $sort = $request->get('sort');
             $search_words = $request->get('search_words');
+            $query = ReadingRecord::query();
 
             // 検索語がある場合
             if(!empty($search_words)){
                 $spaceConversion = mb_convert_kana($search_words, 's');
                 $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-                foreach($wordArraySearched as $value) {
-                    $reading_record = $reading_records
-                        ->where('title', 'like', '%'.$value.'%')
+                
+                $query->where(function($q) use($wordArraySearched){
+                    foreach($wordArraySearched as $value){
+                        $q->orWhere('title', 'like', '%'.$value.'%')
                         ->orWhere('content', 'like', '%'.$value.'%')
                         ->orWhere('author', 'like', '%'.$value.'%');
-                    $reading_records = $reading_record;
-                }
+                    }
+                });
+                $reading_records = $query;
             }
             
             // ジャンル指定がある場合
@@ -47,7 +50,7 @@ class ReadingRecordsController extends Controller
                     $reading_records = $records->sortModel($reading_records, $sort);
                 // 並び替え指定はない場合
                 }else{
-                    $reading_records = $reading_records->paginate(10);
+                    $reading_records = $reading_records;
                 }
             // ジャンル指定なし
             }else{
@@ -57,7 +60,7 @@ class ReadingRecordsController extends Controller
                     $reading_records = $records->sortModel($reading_records, $sort);
                 // ジャンル指定なし＆並び替えなし
                 }else{
-                    $reading_records = $reading_records->paginate(10);
+                    $reading_records = $reading_records;
                 }
             }
             
@@ -67,6 +70,7 @@ class ReadingRecordsController extends Controller
         }
         
             $genres = Genre::all();
+            $reading_records = $reading_records->paginate(10);
             
             return view('welcome', [
                 'reading_records' => $reading_records,
