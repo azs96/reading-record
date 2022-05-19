@@ -19,19 +19,22 @@ class ReadingRecordsController extends Controller
     
     public function index(Request $request)
     {   
+        // ログインしている場合
         if(\Auth::check()){
-            $reading_records = \Auth::user()->reading_records();
+            $user_id = \Auth::id();
             $genre_id = $request->get('genre_id');
             $sort = $request->get('sort');
             $search_words = $request->get('search_words');
             $query = ReadingRecord::query();
-
+            
             // 検索語がある場合
             if(!empty($search_words)){
                 $spaceConversion = mb_convert_kana($search_words, 's');
                 $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
                 
-                $query->where(function($q) use($wordArraySearched){
+                $query->where(function($query) use($user_id){
+                    $query->where('user_id', '=', $user_id);
+                })->where(function($q) use($wordArraySearched, $user_id){
                     foreach($wordArraySearched as $value){
                         $q->orWhere('title', 'like', '%'.$value.'%')
                         ->orWhere('content', 'like', '%'.$value.'%')
@@ -39,8 +42,11 @@ class ReadingRecordsController extends Controller
                     }
                 });
                 $reading_records = $query;
+            }else{
+                $reading_records = \Auth::user()->reading_records();
             }
-            
+
+
             // ジャンル指定がある場合
             if(!empty($genre_id)){
                 $reading_records = $reading_records->where('genre_id', $genre_id);
@@ -65,12 +71,11 @@ class ReadingRecordsController extends Controller
             }
             
             
-        } else {
-            return view('welcome');
-        }
-        
+            
+            
             $genres = Genre::all();
             $reading_records = $reading_records->paginate(10);
+            
             
             return view('welcome', [
                 'reading_records' => $reading_records,
@@ -79,8 +84,11 @@ class ReadingRecordsController extends Controller
                 'genre_id' => $genre_id,
                 'search_words' => $search_words,
             ]);
-        
-         
+            
+        // ログインしていない場合
+        } else {
+            return view('welcome');
+        }
     }
     
     public function store(Request $request)

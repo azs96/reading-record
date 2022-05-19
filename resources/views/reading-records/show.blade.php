@@ -40,7 +40,8 @@
             {!! Form::model($reading_record, ['route' => ['reading_records.destroy', $reading_record->id], 'method' => 'delete']) !!}
                 {!! Form::submit('delete', ['class' => 'btn btn-danger mr-5']) !!}
             {!! Form::close() !!}
-            <div><a class="btn btn-secondary" href="{{ url()->previous() }}">Back to list</a></div>
+            {{-- <div><a class="btn btn-secondary" href="{{ url()->previous() }}">Back to list</a></div> --}}
+            <div><a class="btn btn-secondary" href="{{ route('reading_records.index') }}">Back to list</a></div>
         </div>
         
 
