@@ -12,11 +12,11 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     {{-- 読書記録登録ページへのリンク --}}
-                    <li class="nav-link">{!! link_to_route('reading_records.get', 'Register Record') !!}</li>
+                    <li class="nav-link"><a href="{{ route('reading_records.get') }}" class="nav-link">Register Record</a></li>
                     {{-- 一覧表示へのリンク --}}
-                    <li class="nav-item"><a href="/" class="nav-link">List</a></li>
+                    <li class="nav-link"><a href="{{ route('reading_records.index') }}" class="nav-link">List</a></li>
                     {{-- ログアウトページへのリンク --}}
-                    <li class="nav-link">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                    <li class="nav-link"><a href="{{ route('logout.get') }}" class="nav-link">Logout</a></li>
                 @endif
             </ul>
         </div>

@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-around align-items-center">
     <div>
-        {!! Form::open(['route' => 'reading-records.index', 'method' => 'get']) !!}
+        {!! Form::open(['route' => 'reading_records.index', 'method' => 'get']) !!}
         <p>Genre
             <select class='form-select', name ='genre_id'>
                 <option value="">すべて</option>
@@ -24,7 +24,7 @@
     </div> 
     
     <div>
-        {!! Form::open(['route' => 'reading-records.index', 'method' => 'get']) !!}
+        {!! Form::open(['route' => 'reading_records.index', 'method' => 'get']) !!}
             <div class="form-group">
                 {!! Form::text('search_words', $search_words) !!}
             </div>
@@ -66,5 +66,5 @@
             </div>
         @endforeach
     {{-- ページネーションのリンク --}}
-    {{ $reading_records->links() }}
+    <div class="d-flex justify-content-center">{{ $reading_records->links() }}</div>
 @endif

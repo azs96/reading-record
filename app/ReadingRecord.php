@@ -29,16 +29,16 @@ class ReadingRecord extends Model
     {
         switch($sort){
             case 'updated_at_desc':
-                $reading_records = $reading_records->orderBy('updated_at', 'desc')->paginate(10);
+                $reading_records = $reading_records->orderBy('updated_at', 'desc');
                 break;
             case 'updated_at_asc':
-                $reading_records = $reading_records->orderBy('updated_at', 'asc')->paginate(10);
+                $reading_records = $reading_records->orderBy('updated_at', 'asc');
                 break;
             case 'rating_desc':
-                $reading_records = $reading_records->orderBy('rating', 'desc')->paginate(10);
+                $reading_records = $reading_records->orderBy('rating', 'desc');
                 break;
             case 'rating_asc':
-                $reading_records = $reading_records->orderBy('rating', 'asc')->paginate(10);
+                $reading_records = $reading_records->orderBy('rating', 'asc');
                 break;
         }
         return $reading_records;
